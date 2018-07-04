@@ -1,36 +1,38 @@
-language: python
+language: generic
+os: osx
+sudo: false
 
-cache:
-  - pip
-  - ccache
+env:
+  - PYTHON_VERSION=2.7.10
 
 matrix:
   include:
-    - os: osx
-      osx_image: xcode9.4
-    - os: osx
-      osx_image: xcode9.3
-    - os: osx
-      osx_image: xcode9.2
-    - os: osx
-      osx_image: xcode9.1
-    - os: osx
-      osx_image: xcode9
-    - os: osx
-      osx_image: xcode8.3
-    - os: osx
-      osx_image: xcode8
-    - os: osx
-      osx_image: xcode7.3
-    - os: osx
-      osx_image: xcode6.4
+    - osx_image: xcode9.4
+    - osx_image: xcode9.3
+    - osx_image: xcode9.2
+    - osx_image: xcode9.1
+    - osx_image: xcode9
+    - osx_image: xcode8.3
+    - osx_image: xcode8
+    - osx_image: xcode7.3
+    - osx_image: xcode6.4
+
+before_install:
+  - if [[ $TRAVIS_OS_NAME = "osx" ]]; then
+      brew update > /dev/null
+      brew outdated pyenv || brew upgrade --quiet pyenv
+
+      PYTHON_CONFIGURE_OPTS="--enable-unicode=ucs2" pyenv install -ks $PYTHON_VERSION;
+      pyenv global $PYTHON_VERSION;
+    fi
 
 install:
-  - pip install -U pip wheel
+  - which python pip
+  - python --version
+  - pip install -U pip
+  - pip --version
   - pip install chainer
 
 script:
   - wget "https://raw.githubusercontent.com/chainer/chainer/v4.2.0/examples/mnist/train_mnist.py"
   - python train_mnist.py --epoch 3
-
-sudo: false
