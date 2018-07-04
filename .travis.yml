@@ -1,0 +1,36 @@
+language: python
+
+cache:
+  - pip
+  - ccache
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9.4
+    - os: osx
+      osx_image: xcode9.3
+    - os: osx
+      osx_image: xcode9.2
+    - os: osx
+      osx_image: xcode9.1
+    - os: osx
+      osx_image: xcode9
+    - os: osx
+      osx_image: xcode8.3
+    - os: osx
+      osx_image: xcode8
+    - os: osx
+      osx_image: xcode7.3
+    - os: osx
+      osx_image: xcode6.4
+
+install:
+  - pip install -U pip wheel
+  - pip install chainer
+
+script:
+  - wget "https://raw.githubusercontent.com/chainer/chainer/v4.2.0/examples/mnist/train_mnist.py"
+  - python train_mnist.py --epoch 3
+
+sudo: false
