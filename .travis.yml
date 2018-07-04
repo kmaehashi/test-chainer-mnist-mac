@@ -3,7 +3,7 @@ os: osx
 sudo: false
 
 env:
-  - PYTHON_VERSION=2.7.10
+  - PYTHON_VERSION=2.7.15
 
 matrix:
   include:
