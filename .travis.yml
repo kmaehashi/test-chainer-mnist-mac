@@ -65,7 +65,7 @@ install:
   - python --version
   - pip install -U pip
   - pip --version
-  - pip install chainer
+  - pip install 'chainer==3.0.0'
 
 script:
   - python train_mnist.py --epoch 3
