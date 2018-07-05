@@ -55,7 +55,7 @@ before_install:
   - if [[ $TRAVIS_OS_NAME = "osx" ]]; then
       brew update > /dev/null;
       brew upgrade;
-      brew install pyenv;
+      brew upgrade pyenv || brew install pyenv;
 
       PYTHON_CONFIGURE_OPTS="--enable-unicode=ucs2" pyenv install -ks $PYTHON_VERSION;
       pyenv global $PYTHON_VERSION;
